@@ -1,8 +1,8 @@
-import { useContacts } from 'hooks/useContacts';
+import { useFilter } from 'hooks/useFilter';
 import { Text, FindContact } from './Filter.styled';
 
 export const Filter = () => {
-    const {value, filterContact} = useContacts();
+    const {value, filterContact} = useFilter();
     return (
         <>
             <Text>

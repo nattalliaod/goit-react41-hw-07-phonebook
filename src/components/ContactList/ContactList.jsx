@@ -1,26 +1,34 @@
-import { useContacts } from 'hooks/useContacts';
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
+import { useFetchContactsQuery } from 'redux/contacts/contactSlice';
+import { useFilter } from 'hooks/useFilter';
 import { ContactItem } from 'components/ContactItem/ContactItem';
+import { Spinner } from 'components/Loader/Loader';
 import { Contacts, ContactName } from './ContactList.styled';
 
 export const ContactList = () => {
-    const {contactsVisible} = useContacts();
+    const { data: contacts, isFetching, error } = useFetchContactsQuery();
+    const { value } = useFilter();
+
+    useEffect(() => {
+        if (error) {
+            toast.error(`${error.status} ${error.data.msg}`)
+        }
+    }, [error]);
     
     return (
-        <Contacts>
-            {contactsVisible.map(({ id, name, number }) =>
-                <ContactName key={id}>
-                    <ContactItem id={id} name={name} number={number} />
-                </ContactName>)}
-        </Contacts>
+        <>
+            {isFetching && <Spinner />}
+            <Contacts>
+                {contacts && contacts
+                    .filter(el =>
+                        el.name.toUpperCase().includes(value.toUpperCase()))
+                    .map(({ id, name, phone }) =>
+                    <ContactName key={id}>
+                        <ContactItem id={id} name={name} number={phone} />
+                    </ContactName>)}
+            </Contacts>
+        </>
     );
 }
 
-ContactList.propTypes = {
-    contacts: PropTypes.arrayOf(
-        PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-        })),      
-}

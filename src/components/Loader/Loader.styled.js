@@ -5,8 +5,3 @@ export const LoaderContainer = styled.section`
   place-content: center;
 `;
 
-export const TextLoading = styled.p`
-  font-size: 30px;
-  font-weight: 600;
-  color: #fff;
-`;

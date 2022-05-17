@@ -6,9 +6,11 @@ export const ContactName = styled.p`
 `;
 
 export const ContactNumber = styled.a`
-  margin-right: 15px;
+  margin-left: auto;
+  margin-right: 20px;
   font-weight: 700;
   text-decoration: none;
+  color: lightgrey;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   :hover,
   :focus {

@@ -1,14 +1,14 @@
-// import { useState } from "react";
+import { Toaster } from 'react-hot-toast';
+import { useFetchContactsQuery } from 'redux/contacts/contactSlice';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
-import { Container } from './Container/Container';
-import { getCountContacts } from 'redux/contactsSelectors';
+import { Container } from '../Container/Container';
 import { MainText, Text } from './App.styled';
-import { useSelector } from 'react-redux';
 
 export const App = () => {
-  const contactsCount = useSelector(getCountContacts);
+  const { data } = useFetchContactsQuery();
+
   return (
     <>
       <Container>
@@ -18,9 +18,10 @@ export const App = () => {
 
       <Container>
         <Text>Contacts</Text>
-        {contactsCount > 1 && <Filter />}
+        {data && data.length > 1 && <Filter />}
         <ContactList />
       </Container>
+      <Toaster position="top-right" />
     </>
   );
 };

@@ -1,16 +1,23 @@
-import { Circles } from 'react-loader-spinner';
-import { LoaderContainer, TextLoading } from './Loader.styled';
+import PropTypes from 'prop-types';
+import { Oval } from 'react-loader-spinner';
+import { LoaderContainer} from './Loader.styled';
 
-export const Spinner = () => {
+export const Spinner = ({ height = 70, width = 70 }) => {
   
-    return (
-      <LoaderContainer>
-        <Circles
-          color="#fff"
-          height={100}
-          width={100}
-        />
-        <TextLoading>Loading...</TextLoading>
-      </LoaderContainer>
-    );
+  return (
+    <LoaderContainer>
+      <Oval
+        color="#fff"
+        strokeWidth={5}
+        height={height}
+        width={width}
+        secondaryColor="rgb(150, 191, 224)"
+      />
+    </LoaderContainer>
+  );
 }
+
+Spinner.propTypes = {
+  height: PropTypes.number,
+  width: PropTypes.number,
+};
